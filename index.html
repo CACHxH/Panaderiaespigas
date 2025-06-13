@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Espigas</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f1e5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #8b5a2b;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transition: transform 0.3s ease, padding 0.3s ease, font-size 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+header.shrink {
+  padding: 8px 15px;
+  font-size: 0.95em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.menu-btn {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  margin-right: 10px;
+}
+
+.cart-icon {
+  cursor: pointer;
+  font-size: 24px;
+  position: relative;
+  margin-left: 20px; 
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: white;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 2001;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #8b5a2b;
+      font-weight: bold;
+    }
+
+    .producto {
+      display: inline-block;
+      margin: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .producto:hover {
+      transform: scale(1.05);
+    }
+
+    .producto img {
+      width: 5cm;
+      height: 5cm;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #8b5a2b;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a87444;
+    }
+
+    footer {
+      background-color: #8b5a2b;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .producto {
+        width: 90%;
+        margin: 20px auto;
+      }
+    }
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider img {
+  width: 600px;
+  height: 350px;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin: 0;
+}
+.facturacion {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.facturacion h3 {
+  color: #5e2d1e;
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.facturacion label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #3e1e1a;
+  font-weight: bold;
+}
+
+.facturacion input,
+.facturacion select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.facturacion input:focus,
+.facturacion select:focus {
+  border-color: #8b5a2b;
+  outline: none;
+}
+
+.facturacion .pais {
+  padding: 10px 0;
+  font-weight: bold;
+  color: #3e1e1a;
+}
+
+.facturacion button[type="submit"] {
+  margin-top: 20px;
+  background-color: #8b5a2b;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.facturacion button[type="submit"]:hover {
+  background-color: #a87444;
+}
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.whatsapp img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.whatsapp img:hover {
+  transform: scale(1.1);
+}
+
+
+  </style>
+
+</head>
+<body>
+<header id="header">
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+<h1 style="margin: 0 15px 0 0;"> Panaderia Espigas</h1>
+<br/><br/>
+<input id="busqueda" oninput="filtrarProductos()" placeholder="Buscar productos....." type="text"/>
+<div class="cart-icon" onclick="mostrarCarrito()" title="Ver carrito">
+  🛒 Carrito   
+  <span class="cart-count" id="cart-count">0</span>
+</div>
+</header>
+
+<div class="sidebar" id="sidebar">
+<ul>
+<li><a href="#productos">Productos</a></li>
+<li><a href="#contacto">Contacto</a></li>
+</ul>
+</div><br>
+<main style="margin-top: 100px; text-align: center; padding: 20px">
+  <div class="slider-container">
+    <div class="slider" id="slider">
+        <img src="https://mandolina.co/wp-content/uploads/2023/07/donas-glaseadas-1200x900.png" alt="Producto 1">
+        <img src="https://i.blogs.es/1a1b83/copia-de-portada---2024-06-24t165356.841/1366_2000.jpg" alt="Producto 2">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNS5Nyz_ZaY7R9-xTcp9DoU6lAFFuRdoNtvQ&amp;s" alt="Producto 3">
+    </div>
+</div>
+
+<section id="inicio">
+<h2>Bienvenido a Espigas</h2>
+<p>Descubre nuestros productos exclusivos.</p>
+</section>
+
+<section id="productos">
+<h2>Nuestros Productos</h2>
+<div class="producto" onclick="mostrarSeccion('donas')">
+<img src="https://mandolina.co/wp-content/uploads/2023/07/donas-glaseadas-1200x900.png"/>
+<p>Donas</p>
+</div>
+<div class="producto" onclick="mostrarSeccion('pasteles')">
+<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/3b/19/26/pasteles-y-compania.jpg?w=900&amp;h=500&amp;s=1"/>
+<p>Pasteles</p>
+</div>
+<div class="producto" onclick="mostrarSeccion('pan')">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOeEemNMPzAZllPUWUNUU4kpuXxrxsWWeetA&amp;s"/>
+<p>Pan</p>
+</div>
+<div class="producto" onclick="mostrarSeccion('bebidas')">
+<img src="https://gestoriapastor.org/wp-content/uploads/2021/01/the-refrescos.jpg"/>
+<p>Bebidas</p>
+</div>
+<div class="producto" onclick="mostrarSeccion('bocaditos')">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE88k1P3fr5X31H9DQceD-3kXM-Aj2X0IuoA&amp;s"/>
+<p>Bocaditos</p>
+</div>
+<div class="producto" onclick="mostrarSeccion('empanadas')">
+<img src="https://images.getrecipekit.com/v1614896752_Beef-Cheese-Empanadas-Web-1_lqfa2v.jpg?aspect_ratio=16:9&amp;quality=90&amp;"/>
+<p>Empanadas</p>
+</div>
+</section>
+
+<section id="donas-section" style="display: none">
+<h2>Variedades de Donas</h2>
+<div class="producto">
+<h2>$0,50</h2>
+<img src="https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/7dae30538aced8716da0572ecde15072.png"/>
+<p>Donas de chocolate</p>
+<button onclick="Carrito(this)" data-nombre="Donas Glaseadas" data-precio="0.75">Añadir al carrito</button>
+</div>
+<div class="producto">
+<h2>$0,75</h2>
+<img src="https://i.pinimg.com/736x/30/62/6b/30626b3eb4cf7718193b8bcac32fa14b.jpg"/>
+<p>Donas Glaseadas</p>
+<button onclick="Carrito(this)" data-nombre="Donas Glaseadas" data-precio="0.75">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$0,75</h2>
+  <img src="https://sharkninja-cookingcircle.s3.eu-west-1.amazonaws.com/wp-content/uploads/2020/07/31170103/Vanilla-Glazed-Doughnuts-1.jpg"/>
+  <p>Donas Glaseadas con Chispas</p>
+  <button onclick="Carrito(this)" data-nombre="Donas Glaseadas con chispas" data-precio="0.75">Añadir al carrito</button>
+  </div>
+<button onclick="volverAProductos()">Volver a productos</button>
+</section>
+
+<section id="pasteles-section" style="display: none">
+<h2>Variedades de Pasteles</h2>
+<div class="producto">
+  <h2>$12</h2>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJH0Ua5anA8sm8icgx_xzQbcjzI3sFTQmgrg&s"/>
+<p>Pastel de platano maduro</p>
+<button onclick="Carrito(this)" data-nombre="Pastel de platano maduro" data-precio="12">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$10</h2>
+  <img src="https://www.azucardominomex.com/sites/azucardominomex_com/files/styles/m/public/2022-09/600x336_PASTEL-DE-CHOCOLATE-BRUCE.jpg.webp?itok=1xSHaWTo"/>
+  <p>Pastel de chocolate</p>
+  <button onclick="Carrito(this)" data-nombre="Donas Glaseadas" data-precio="10">Añadir al carrito</button>
+  </div>
+<button onclick="volverAProductos()">Volver a productos</button>
+</section>
+
+
+<section id="pan-section" style="display: none">
+<h2>Variedades de Pan</h2>
+<div class="producto">
+  <h2>$ 0,17</h2>
+<img src="https://panaderiaypastelerialaunion.com/wp-content/uploads/2019/03/pan-enrollado-1.jpg"/>
+<p>Pan enrollado</p>
+<button onclick="Carrito(this)" data-nombre="Pan enrollado" data-precio="0.17">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$ 0,15</h2>
+  <img src="https://panaderiaypastelerialaunion.com/wp-content/uploads/2019/03/pan-reventado-con-queso-1.jpg"/>
+  <p>Pan reventado</p>
+  <button onclick="Carrito(this)" data-nombre="Pan reventado" data-precio="0.15">Añadir al carrito</button>
+  </div>
+<div class="producto">
+  <h2>$ 0,22</h2>
+    <img src="https://panaderiaypastelerialaunion.com/wp-content/uploads/2019/03/pan-cacho.jpg"/>
+    <p>Pan cachito</p>
+    <button onclick="Carrito(this)" data-nombre="Pan Cachito" data-precio="0.22">Añadir al carrito</button>
+    </div>
+ <div class="producto">
+  <h2>$ 0,55</h2>
+      <img src="https://i.blogs.es/1a1b83/copia-de-portada---2024-06-24t165356.841/1366_2000.jpg"/>
+      <p>Pan integral</p>
+      <button onclick="Carrito(this)" data-nombre="Pan Integral" data-precio="0.55">Añadir al carrito</button>
+      </div>
+      <div class="producto">
+        <h2>$ 0,50</h2>
+        <img src="https://www.panambato.com/wp-content/uploads/2020/03/panambato-pan-chocolate.jpg"/>
+        <p>Pan de chocolate</p>
+        <button onclick="Carrito(this)" data-nombre="Pan de chocolate" data-precio="0.50">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+          <h2>$ 0,22</h2>
+          <img src="https://www.panambato.com/wp-content/uploads/2020/03/panambato-Roll-canela-.jpg"/>
+          <p>roll canela</p>
+          <button onclick="Carrito(this)" data-nombre="Roll canela" data-precio="0.22">Añadir al carrito</button>
+          </div>
+          <div class="producto">
+            <h2>$ 0,17</h2>
+            <img src="https://www.panambato.com/wp-content/uploads/2020/04/panambato-pan-de-leche-dulce.jpg"/>
+            <p>pan de leche dulce</p>
+            <button onclick="Carrito(this)" data-nombre="Pan de leche dulce" data-precio="0.17">Añadir al carrito</button>
+            </div>
+            <div class="producto">
+              <h2>$ 0,18</h2>
+              <img src="https://www.panambato.com/wp-content/uploads/2020/03/panambato-rosa-ambato-copia.jpg"/>
+              <p>pan rosa</p>
+              <button onclick="Carrito(this)" data-nombre="Pan rosa" data-precio="0.18">Añadir al carrito</button>
+              </div>
+              <br>
+<button onclick="volverAProductos()">Volver a productos</button>
+</section>
+
+<section id="bebidas-section" style="display: none">
+<h2>Variedades de Bebidas</h2>
+<div class="producto">
+<h2>$ 0,50</h2>
+<img src="https://distribuidorariofrio.com/wp-content/uploads/2022/03/coca-cola-pequea-300ml-1.jpg"/>
+<p>Coca cola pequeña</p>
+<button onclick="Carrito(this)" data-nombre="Coca cola pequeña" data-precio="0.50">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$ 0,65</h2>
+  <img src="https://www.supermercadosantamaria.com/documents/10180/10504/163253791_M.jpg"/>
+  <p>coca cola mediana</p>
+  <button onclick="Carrito(this)" data-nombre="coca cola mediana" data-precio="0.65">Añadir al carrito</button>
+  </div>
+  <div class="producto">
+    <h2>$ 1,10</h2>
+    <img src="https://www.supermercadosantamaria.com/documents/10180/10504/69796_G.jpg"/>
+    <p>coca cola grande</p>
+    <button onclick="Carrito(this)" data-nombre="coca cola grande" data-precio="1.10">Añadir al carrito</button>
+    </div>  
+    <div class="producto">
+      <h2>$ 3,10</h2>
+      <img src="https://elbodegon.com.ec/quito/cumbaya/17-medium_default/coca-cola-3-litros.jpg"/>
+      <p>coca cola grande 3 litros</p>
+      <button onclick="Carrito(this)" data-nombre="coca cola grande 3 litros" data-precio="3.10">Añadir al carrito</button>
+      </div> 
+      <div class="producto">
+        <h2>$ 0,25</h2>
+        <img src="https://www.supermaxi.com/wp-content/uploads/2024/08/items2Figm2F1000x10002F759494004277-1-4.jpg.webp"/>
+        <p>quintuple de piña</p>
+        <button onclick="Carrito(this)" data-nombre="quintuple de piña" data-precio="0.25">Añadir al carrito</button>
+        </div> 
+        <div class="producto">
+          <h2>$ 0,25</h2>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNshyTXDNM5NhLca9kn5xVF40_hs_PUlUQEA&s"/>
+          <p>quintuple de uva</p>
+          <button onclick="Carrito(this)" data-nombre="quintuple de uva" data-precio="0.25">Añadir al carrito</button>
+          </div> 
+          <div class="producto">
+            <h2>$ 0,35</h2>
+            <img src="https://www.supermercadosantamaria.com/documents/10180/10504/109239_G.jpg"/>
+            <p>pony malta pequeña</p>
+            <button onclick="Carrito(this)" data-nombre="pony malta pequeña" data-precio="0.35">Añadir al carrito</button>
+            </div> 
+            <div class="producto">
+              <h2>$ 0,55</h2>
+              <img src="https://lavaquita.co/cdn/shop/products/supermercados_la_vaquita_supervaquita_pony_malta_330ml_pet_bebidas_liquidas.jpg?v=1620489380"/>
+              <p>pony malta mediana</p>
+              <button onclick="Carrito(this)" data-nombre="pony malta mediana" data-precio="0.55">Añadir al carrito</button>
+              </div> 
+              <div class="producto">
+                <h2>$ 1,05</h2>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsuhTft8PiS68dm-2cxeSCNyzz-AnIboP8nA&s"/>
+                <p>pony malta grande</p>
+                <button onclick="Carrito(this)" data-nombre="pony malta grande" data-precio="0.75">Añadir al carrito</button>
+                </div> 
+                <div class="producto">
+                  <h2>$ 0,65</h2>
+                  <img src="https://www.coca-cola.com/content/dam/onexp/ec/es/brands/fuze-tea/nuevo/1198x898_limon_d.png"/>
+                  <p>fuze tea pequeño</p>
+                  <button onclick="Carrito(this)" data-nombre="fuze tea pequeño" data-precio="0.65">Añadir al carrito</button>
+                  </div> 
+                  <div class="producto">
+                    <h2>$ 1,10</h2>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSwGKSNh_Iw0Z4BkjykvhNJbrqzFs_ClrLjLgMWAOnVTZWEMFqU9D1Udj7eO2kZ1Z0G-g&usqp=CAU"/>
+                    <p>fuze tea grande</p>
+                    <button onclick="Carrito(this)" data-nombre="fuze tea grande" data-precio="1.10">Añadir al carrito</button>
+                    </div> 
+                    <br>
+<button onclick="volverAProductos()">Volver a productos</button>
+</section>
+
+<section id="bocaditos-section" style="display: none">
+<h2>Variedades de Bocaditos</h2>
+
+<div class="producto">
+  <h2>$0.25</h2>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7lCju9B2TXRBkdSnOWZ-kA-x4nRSl3x6_Lg&s"/>
+<p>Orejas</p>
+<button onclick="Carrito(this)" data-nombre="Orejas" data-precio="0.25">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$0.10</h2>
+  <img src="https://www.lareposterita.com.ec/wp-content/uploads/2022/02/12.SUSPIROS-min.jpg"/>
+  <p>Suspiros</p>
+  <button onclick="Carrito(this)" data-nombre="Suspiros" data-precio="0.10">Añadir al carrito</button>
+  </div>
+  <div class="producto">
+  <h2>$ 0,75</h2>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNS5Nyz_ZaY7R9-xTcp9DoU6lAFFuRdoNtvQ&amp;s"/>
+<p>Berlines</p>
+<button onclick="Carrito(this)" data-nombre="Donas Glaseadas" data-precio="0.75">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$ 0,30</h2>
+<img src="https://www.elmejornido.com/sites/g/files/jgfbjl316/files/styles/facebook_share/public/recipe-thumbnail/172079-7aaab8e46adbcc809b3004d7bcf08722_alfajores_de_maicena.jpg?itok=YSVwCSza"/>
+<p>Alfajores</p>
+<button onclick="Carrito(this)" data-nombre="Alfajores" data-precio="0.30">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$ 0,25</h2>
+<img src="https://www.cocina-ecuatoriana.com/base/stock/Recipe/aplanchados/aplanchados_web.jpg"/>
+<p>Aplanchados</p>
+<button onclick="Carrito(this)" data-nombre="Aplanchados" data-precio="0.25">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$ 0,15</h2>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGxh8BD0DA2pXdWttkJ5wnK-5PIfPAUP8B0g&s"/>
+<p>Galletas de chocolate</p>
+<button onclick="Carrito(this)" data-nombre="Galletas de Chocolate" data-precio="0.15">Añadir al carrito</button>
+</div>
+<br>
+<button onclick="volverAProductos()">Volver a productos</button>
+</section>
+
+<section id="empanadas-section" style="display: none">
+<h2>Variedades de Empanadas</h2>
+<div class="producto">
+  <h2>$ 0,55</h2>
+<img src="https://img-global.cpcdn.com/recipes/8fc7d7228a9fb0e8/400x400cq70/photo.jpg"/>
+<p>Empanadas de verde de pollo</p>
+<button onclick="Carrito(this)" data-nombre="Empanadas de verde de pollo" data-precio="0.55">Añadir al carrito</button>
+</div>
+<div class="producto">
+  <h2>$ 0,55</h2>
+  <img src="https://img-global.cpcdn.com/recipes/8fc7d7228a9fb0e8/400x400cq70/photo.jpg"/>
+  <p>Empanadas de verde de carne</p>
+  <button onclick="Carrito(this)" data-nombre="Empanadas de verde de carne" data-precio="0.55">Añadir al carrito</button>
+  </div>
+  <div class="producto">
+    <h2>$ 0,50</h2>
+    <img src="https://img-global.cpcdn.com/recipes/8fc7d7228a9fb0e8/400x400cq70/photo.jpg"/>
+    <p>Empanadas de verde de queso</p>
+    <button onclick="Carrito(this)" data-nombre="Empanadas de verde de queso" data-precio="0.50">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <h2>$ 0,45</h2>
+      <img src="https://easyways.cl/storage/20180601113008masa-de-empanadas.jpg"/>
+      <p>Empanadas de pollo</p>
+      <button onclick="Carrito(this)" data-nombre="Empanadas de pollo" data-precio="0.45">Añadir al carrito</button>
+      </div>
+      <div class="producto">
+        <h2>$ 0,45</h2>
+        <img src="https://easyways.cl/storage/20180601113008masa-de-empanadas.jpg"/>
+        <p>Empanadas de verde carne</p>
+        <button onclick="Carrito(this)" data-nombre="Empanadas de verde carne" data-precio="0.45">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+          <h2>$ 0,40</h2>
+          <img src="https://easyways.cl/storage/20180601113008masa-de-empanadas.jpg"/>
+          <p>Empanadas de queso</p>
+          <button onclick="Carrito(this)" data-nombre="Empanadas de queso" data-precio="0.40">Añadir al carrito</button>
+          </div>
+          <br>
+<button onclick="volverAProductos()">Volver a productos</button>
+</section>
+
+
+<section id="carrito-section" style="display: none;">
+  <h2>Carrito de Compras</h2>
+  <div id="carrito-items"></div>
+  <p>Subtotal: $<span id="subtotal">0.00</span></p>
+  <p>IVA (15%): $<span id="iva">0.00</span></p>
+  <p><strong>Total: $<span id="total">0.00</span></strong></p>
+  <button onclick="volverAProductos()">Volver a productos</button>
+  <h3>Detalles de Facturación</h3>
+  <div class="facturacion">
+    <form id="facturacionForm" onsubmit="return validarFormulario()">
+    <label for="nombre">Nombre *</label>
+    <input type="text" id="nombre" name="nombre" required />
+
+    <label for="apellidos">Apellidos *</label>
+    <input type="text" id="apellidos" name="apellidos" required />
+
+    <label>País*</label>
+    <p class="pais">Ecuador</p>
+
+    <label for="direccion">Dirección de la calle *</label>
+    <input type="text" id="direccion" name="direccion" placeholder="Nombre de la calle y número de la casa" required />
+    <input type="text" placeholder="Apartamento, habitación, etc. (opcional)" />
+
+    <label for="ciudad">Ciudad *</label>
+    <input type="text" id="ciudad" name="ciudad" required />
+
+    <label for="region">Provincia *</label>
+    <select id="region" name="region" required>
+      <option value="">Selecciona una provincia</option>
+      <option value="guayas">Guayas</option>
+      <option value="pichincha">Pichincha</option>
+      <option value="manabi">Manabí</option>
+      <option value="azuay">Azuay</option>
+    </select>
+
+    <label for="telefono">Teléfono *</label>
+    <input type="tel" id="telefono" name="telefono" required />
+
+    <label for="email">Dirección de correo electrónico *</label>
+    <input type="email" id="email" name="email" required />
+
+    <button type="submit">Finalizar Compra</button>
+  </form>
+</div>
+</section>
+
+</main>
+<footer id="contacto">
+<p>© 2025 Espigas. Todos los derechos reservados.</p>
+<p>Email: contacto@espigas.com | Tel: 096 336 2940</p>
+<a href="https://wa.me/593963362940" class="whatsapp" target="_blank" title="Hablar con mi amigo">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" />
+</a>
+
+
+</footer>
+
+<script>
+  let currentIndex = 0;
+  let slider, images;
+  
+  function updateSliderPosition() {
+    const imageWidth = images[0].clientWidth;
+    const offset = -currentIndex * imageWidth;
+    slider.style.transform = `translateX(${offset}px)`;
+  }
+  
+  function showNextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateSliderPosition();
+  }
+  
+  window.addEventListener('load', () => {
+    slider = document.getElementById('slider');
+    images = slider.querySelectorAll('img');
+    updateSliderPosition();
+    setInterval(showNextImage, 3000);
+  });
+  
+  window.addEventListener('resize', updateSliderPosition);
+  </script>
+  
+<script>
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+      isMenuOpen = sidebar.classList.contains('open');
+    }
+
+    function mostrarSeccion(nombre) {
+      document.getElementById('productos').style.display = 'none';
+      document.querySelectorAll('section[id$="-section"]').forEach(sec => sec.style.display = 'none');
+      document.getElementById(nombre + '-section').style.display = 'block';
+    }
+
+    function volverAProductos() {
+      document.querySelectorAll('section[id$="-section"]').forEach(sec => sec.style.display = 'none');
+      document.getElementById('productos').style.display = 'block';
+    }
+
+    function filtrarProductos() {
+      const input = document.getElementById('busqueda').value.toLowerCase();
+      const productos = document.querySelectorAll('#productos .producto');
+
+      productos.forEach(producto => {
+        const texto = producto.textContent.toLowerCase();
+        producto.style.display = texto.includes(input) ? 'inline-block' : 'none';
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      const header = document.getElementById('header');
+      const sidebar = document.getElementById('sidebar');
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScroll > 20) {
+        header.classList.add('shrink');
+        if (isMenuOpen) {
+          sidebar.classList.remove('open');
+          isMenuOpen = false;
+        }
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  </script>
+
+<script>
+let carrito = [];
+
+function Carrito(boton) {
+  const nombre = boton.getAttribute('data-nombre');
+  const precio = parseFloat(boton.getAttribute('data-precio'));
+
+  const index = carrito.findIndex(item => item.nombre === nombre);
+  if (index >= 0) {
+    carrito[index].cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  actualizarCarrito();
+}
+
+function actualizarCarrito() {
+  document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+
+  const contenedor = document.getElementById('carrito-items');
+  contenedor.innerHTML = '';
+
+  let subtotal = 0;
+  carrito.forEach(item => {
+    subtotal += item.precio * item.cantidad;
+    const div = document.createElement('div');
+    div.innerHTML = `${item.nombre} x ${item.cantidad} = $${(item.precio * item.cantidad).toFixed(2)}
+      <button onclick="quitarProducto('${item.nombre}')">Quitar</button>`;
+    contenedor.appendChild(div);
+  });
+
+  const iva = subtotal * 0.15;
+  const total = subtotal + iva;
+  document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+  document.getElementById('iva').innerText = iva.toFixed(2);
+  document.getElementById('total').innerText = total.toFixed(2);
+}
+
+function quitarProducto(nombre) {
+  carrito = carrito.filter(item => item.nombre !== nombre);
+  actualizarCarrito();
+}
+
+function mostrarCarrito() {
+  document.getElementById('productos').style.display = 'none';
+  document.querySelectorAll('section[id$="-section"]').forEach(sec => sec.style.display = 'none');
+  document.getElementById('carrito-section').style.display = 'block';
+}
+
+function validarFormulario() {
+  const nombre = document.getElementById("nombre").value.trim();
+  const apellidos = document.getElementById("apellidos").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
+  const ciudad = document.getElementById("ciudad").value.trim();
+  const region = document.getElementById("region").value;
+  const telefono = document.getElementById("telefono").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!nombre || !apellidos || !direccion || !ciudad || !region || !telefono || !email) {
+    alert("Por favor completa todos los campos obligatorios.");
+    return false;
+  }
+
+  alert("Su pedido se realizo correctamente.");
+  return true;
+}
+</script>
+
+</body>
+</html>
